@@ -8,7 +8,8 @@ def play_music(file, stopper):
     mixer.music.load(file)
     mixer.music.play(loops=-1)  # loops=-1 => loop indefinitely
     while True:
-        a = input()
+        break_out_of_loop_1 = False
+        a = input().lower()
         if a == stopper:
             mixer.music.stop()
             print("\n::::::::: GREAT :::::::::")
@@ -17,6 +18,20 @@ def play_music(file, stopper):
             print(":: :: :: HEALTHY PROGRAMMER :: :: ::")
             break
 
+        if a == "hold":
+            mixer.music.stop()
+            cls()
+            print(":: :: :: HEALTHY PROGRAMMER (on hold) :: :: ::")
+            print("Input res to resume")
+            while True:
+                res = input().lower()
+                if res == "res":
+                    print("\nResuming...")
+                    sleep(1)
+                    break_out_of_loop_1 = True
+                    break
+        if break_out_of_loop_1:
+            break
 
 
 def log(msg):
@@ -35,23 +50,23 @@ if __name__ == '__main__':
     initWater = time()
     initEyes = time()
     initExercise = time()
-    waterSec = 25*60
-    eyesSec = 20*60
-    exerSec = 45*60
+    waterSec = 25 * 60
+    eyesSec = 20 * 60
+    exerSec = 45 * 60
     print(":: :: :: HEALTHY PROGRAMMER :: :: ::")
     while True:
         if (time() - initWater) > waterSec:
-            print("Time to drink water. Input drank to stop music")
+            print("Time to drink water. Input 'drank' to stop music or 'hold' to pause the program.")
             play_music("water.mp3", "drank")
             initWater = time()
             log("Water")
         if (time() - initEyes) > eyesSec:
-            print("Time to do eyes exercise. Input eyes to stop music")
+            print("Time to do eyes exercise. Input 'eyes' to stop music or 'hold' to pause the program.")
             play_music("eyes.mp3", "eyes")
             initEyes = time()
             log("Eyes")
         if (time() - initExercise) > exerSec:
-            print("Time to exercise. Input done to stop music")
+            print("Time to exercise. Input 'done' to stop music or 'hold' to pause the program.")
             play_music("exercise.mp3", "done")
             initExercise = time()
             log("Exercise")
